@@ -9,8 +9,14 @@ fi
 
 # --- Plugins -------------------------------------------------
 ZSHDIR="${${(%):-%x}:A:h}"
+
 source $ZSHDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 source $ZSHDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source $ZSHDIR/plugins/zsh-async/async.zsh
+
+zstyle :prompt:pure:git:branch color red
+zstyle :prompt:pure:virtualenv color cyan
+source $ZSHDIR/plugins/pure/pure.zsh
 
 # --- Fuzzy Finding -------------------------------------------
 source <(fzf --zsh)

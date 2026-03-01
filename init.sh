@@ -1,22 +1,22 @@
-#!/usr/bin/env zsh
-# Run this script to set up the lean zsh config.
+#!/usr/bin/env sh
+# Run this script on initial setup to get plugins
 # Safe to re-run — skips steps that are already done.
 
-ZSHDIR="${0:A:h}"  # directory containing this script
+ZSHDIR="$(cd "$(dirname "$0")" && pwd)"  # directory containing this script
+
+clone_plugin() {
+    local name="$1" url="$2"
+    if [[ ! -d "$ZSHDIR/plugins/$name" ]]; then
+        git clone --depth=1 "$url" "$ZSHDIR/plugins/$name"
+    else
+        echo "$name already installed, skipping."
+    fi
+}
 
 # Clone plugins if not already present
-if [[ ! -d "$ZSHDIR/plugins/zsh-autosuggestions" ]]; then
-    git clone --depth=1 https://github.com/zsh-users/zsh-autosuggestions \
-        "$ZSHDIR/plugins/zsh-autosuggestions"
-else
-    echo "zsh-autosuggestions already installed, skipping."
-fi
-
-if [[ ! -d "$ZSHDIR/plugins/zsh-syntax-highlighting" ]]; then
-    git clone --depth=1 https://github.com/zsh-users/zsh-syntax-highlighting \
-        "$ZSHDIR/plugins/zsh-syntax-highlighting"
-else
-    echo "zsh-syntax-highlighting already installed, skipping."
-fi
+clone_plugin zsh-autosuggestions     https://github.com/zsh-users/zsh-autosuggestions
+clone_plugin zsh-syntax-highlighting https://github.com/zsh-users/zsh-syntax-highlighting
+clone_plugin zsh-async               https://github.com/mafredri/zsh-async
+clone_plugin pure                    https://github.com/sindresorhus/pure
 
 echo "Done. Plugins are ready in $ZSHDIR/plugins/"
