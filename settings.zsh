@@ -31,6 +31,10 @@ set -o vi
 # --- Fast switching of python environments -------------------
 VENVDIR=~/Coding/python/envs
 function venv() {
+  if [[ -z $1 ]]; then
+    ls $VENVDIR
+    return
+  fi
   deactivate 2> /dev/null || true
   source $VENVDIR/$1/bin/activate
 }
