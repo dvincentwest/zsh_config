@@ -38,3 +38,6 @@ function venv() {
   deactivate 2> /dev/null || true
   source $VENVDIR/$1/bin/activate
 }
+
+# --- User shell scripts on the path --------------------------
+export PATH=$PATH:~/.local/bin
